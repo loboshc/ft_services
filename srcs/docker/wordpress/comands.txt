@@ -1,0 +1,8 @@
+#build docker image
+docker build -t wordpress -f ./srcs/docker/wordpress/Dockerfile .
+#run image
+docker run -d --rm --name wordpress_cont -p 5050:5050 wordpress
+#bash on running container
+docker exec -it wordpress_cont /bin/sh
+#enter to bash 
+kubectl exec -it [pod_name] -- ./bin/sh

@@ -1,0 +1,8 @@
+#build docker image
+docker build -t mysql -f ./srcs/docker/mysql/Dockerfile .
+#run image
+docker run -d --rm --name mysql_cont -p 3306:3306 mysql
+#bash on running container
+docker exec -it mysql_cont /bin/sh
+#enter to bash 
+kubectl exec -it [pod_name] -- ./bin/sh

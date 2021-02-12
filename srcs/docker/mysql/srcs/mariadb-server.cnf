@@ -1,0 +1,9 @@
+[client-server] 
+port = 3306
+socket=/run/mysqld/mysql.sock 
+
+[mysqld] 
+user = root
+bind-address = 0.0.0.0
+datadir=/var/lib/mysql
+log-bin=/var/lib/mysql/mysql-bin
