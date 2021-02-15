@@ -2,8 +2,6 @@ FROM alpine:3.12
 
 RUN apk update \
 	&& apk add wget \
-	&& apk add ca-certificates\
-	&& update-ca-certificates \
 	&& apk add mysql-client \
 	&& apk add php7 php7-fpm php7-opcache php7-gd php7-mysqli \
 	php7-zlib php7-curl php7-mbstring php7-json php7-session php-common \
@@ -17,6 +15,9 @@ RUN mkdir -p /usr/share/webapps/ \
 	&& tar -xzvf latest.tar.gz \
 	&& rm latest.tar.gz
 
+COPY srcs/docker/wordpress/srcs_wordpress/setup_wordpress.sh /tmp/
+RUN chmod 777 /tmp/setup_wordpress.sh
+
 EXPOSE 5050	
 
-ENTRYPOINT sleep infinity && wait && bash 
+ENTRYPOINT ["/tmp/setup_wordpress.sh"]
