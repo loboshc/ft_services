@@ -1,0 +1,10 @@
+#build docker image
+docker build -t phpmyadmin -f ./srcs/docker/phpmyadmin/Dockerfile .
+#run image
+docker run -d --rm --name phpmyadmin_cont -p 5000:5000 phpmyadmin
+#bash on running container
+docker exec -it phpmyadmin_cont /bin/sh
+#enter to bash 
+kubectl exec -it [pod_name] -- ./bin/sh
+#iniciar php server en phpmyadmin
+php --server 0.0.0.0:5000 --docroot /usr/share/webapps/phpmyadmin 

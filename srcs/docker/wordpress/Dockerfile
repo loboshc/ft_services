@@ -15,6 +15,6 @@ RUN chmod 777 /sbin/init.sh
 RUN chmod 777 /sbin/setup_wordpress.sh
 RUN mkdir -p /usr/share/webapps/wordpress
 
-EXPOSE 5050	
+EXPOSE 5050 
 
 ENTRYPOINT ["/sbin/init.sh"]

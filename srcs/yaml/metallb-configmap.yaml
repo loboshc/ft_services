@@ -7,6 +7,6 @@ data:
   config: |
     address-pools:
     - addresses:
-      - 192.168.99.240-192.168.99.240
+      - 192.168.99.240-192.168.99.250
       name: default
       protocol: layer2
