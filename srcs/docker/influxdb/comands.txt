@@ -1,0 +1,8 @@
+#build docker image
+docker build -t influxdb -f ./srcs/docker/influxdb/Dockerfile .
+#run image
+docker run -d --rm --name influxdb_cont -p 8086:8086 influxdb
+#bash on running container
+docker exec -it influxdb_cont /bin/sh
+#enter to bash 
+kubectl exec -it [pod_name] -- ./bin/sh
