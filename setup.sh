@@ -18,6 +18,9 @@ docker build -t image_wordpress:lastest -f ./srcs/docker/wordpress/Dockerfile .
 kubectl apply -f ./srcs/yaml/wordpress.yaml
 docker build -t image_phpmyadmin:lastest -f ./srcs/docker/phpmyadmin/Dockerfile .
 kubectl apply -f ./srcs/yaml/phpmyadmin.yaml
+kubectl apply -f ./srcs/yaml/influxdb-pvc.yaml
+docker build -t image_influxdb:lastest -f ./srcs/docker/influxdb/Dockerfile .
+kubectl apply -f ./srcs/yaml/influxdb.yaml
 
 
 eval $(minikube docker-env --unset)

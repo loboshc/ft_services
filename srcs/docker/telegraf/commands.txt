@@ -1,0 +1,8 @@
+#build docker image
+docker build -t telegraf -f ./srcs/docker/telegraf/Dockerfile .
+#run image
+docker run -d --rm --name telegraf_cont -p 5000:5000 telegraf
+#bash on running container
+docker exec -it telegraf_cont /bin/sh
+#enter to bash 
+kubectl exec -it [pod_name] -- ./bin/sh
