@@ -6,3 +6,5 @@ docker run -d --rm --name telegraf_cont -p 5000:5000 telegraf
 docker exec -it telegraf_cont /bin/sh
 #enter to bash 
 kubectl exec -it [pod_name] -- ./bin/sh
+
+./telegraf -sample-config -input-filter kube_inventory -output-filter influxdb > telegraf.conf

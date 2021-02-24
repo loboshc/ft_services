@@ -6,7 +6,7 @@
 #    By: dlobos-m <dlobos-m@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/20 16:55:57 by diego             #+#    #+#              #
-#    Updated: 2021/02/23 14:16:05 by dlobos-m         ###   ########.fr        #
+#    Updated: 2021/02/24 20:12:41 by dlobos-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ RUN apk update \
 	&& rm influxdb2-2.0.4-linux-amd64.tar.gz \
 	&& mv influxdb2-2.0.4-linux-amd64 influxdb
 
-COPY srcs/docker/influxdb/init.sh /sbin/
+COPY srcs/docker/influxdb/srcs_influxdb/init.sh /sbin/
 RUN chmod 777 /sbin/init.sh
 
 EXPOSE 8086
