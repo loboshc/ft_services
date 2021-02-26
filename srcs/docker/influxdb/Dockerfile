@@ -6,22 +6,23 @@
 #    By: dlobos-m <dlobos-m@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/20 16:55:57 by diego             #+#    #+#              #
-#    Updated: 2021/02/24 20:12:41 by dlobos-m         ###   ########.fr        #
+#    Updated: 2021/02/26 20:43:38 by dlobos-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 FROM alpine:3.12
 
 RUN apk update \
+	&& apk add influxdb \
 	&& cd /sbin/ \
-	&& wget https://dl.influxdata.com/influxdb/releases/influxdb2-2.0.4-linux-amd64.tar.gz \
-	&& tar xvfz influxdb2-2.0.4-linux-amd64.tar.gz \
-	&& rm influxdb2-2.0.4-linux-amd64.tar.gz \
-	&& mv influxdb2-2.0.4-linux-amd64 influxdb
+	&& wget https://dl.influxdata.com/telegraf/releases/telegraf-1.17.3_linux_i386.tar.gz \
+	&& tar xf telegraf-1.17.3_linux_i386.tar.gz \
+	&& rm telegraf-1.17.3_linux_i386.tar.gz \
+	&& mv telegraf-1.17.3 telegraf
 
 COPY srcs/docker/influxdb/srcs_influxdb/init.sh /sbin/
 RUN chmod 777 /sbin/init.sh
 
 EXPOSE 8086
 
-ENTRYPOINT ["/sbin/init.sh"]
+ENTRYPOINT sleep infinity && wait

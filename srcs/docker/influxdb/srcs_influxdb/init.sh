@@ -1,6 +1,12 @@
 #!/bin/sh
 
-cd /sbin/influxdb
-./influxd & sleep 10
-./influx setup -u admin -p 123456789 -o ft_services -b ft_services -r 0 -f
-tail -f /dev/null
+#NO FUNCIONA BUSCAR EL PORQUE
+#sed -i '16s/.*/    bind-address = "http://influxdb-service:8086"/' /etc/influxdb.conf
+sed -i '247s/.*/    enabled = true/' /etc/influxdb.conf
+sed -i '256s/.*/    bind-address = ":8086"/' etc/influxdb.conf
+cd /sbin/telegraf/usr/bin
+./telegraf -sample-config -input-filter cpu:mem:disk -output-filter influxdb > telegraf.conf
+sed -i '112s/.*/  urls = ["http://0.0.0.0:8086"]/' telegraf.conf
+sed -i '116s/.*/  database = "influxdb"/' telegraf.conf
+influxd --config /etc/influxdb.conf & sleep 10
+./telegraf --config telegraf.conf
