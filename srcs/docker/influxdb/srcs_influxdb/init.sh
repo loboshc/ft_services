@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #NO FUNCIONA BUSCAR EL PORQUE
-#sed -i '16s/.*/    bind-address = "http://influxdb-service:8086"/' /etc/influxdb.conf
+#sed -i '15s/.*/  bind-address = "http:\/\/influxdb-service:8086"/' /etc/influxdb.conf
 sed -i '247s/.*/    enabled = true/' /etc/influxdb.conf
 sed -i '256s/.*/    bind-address = ":8086"/' etc/influxdb.conf
 cd /sbin/telegraf/usr/bin
