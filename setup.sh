@@ -21,6 +21,8 @@ kubectl apply -f ./srcs/yaml/phpmyadmin.yaml
 kubectl apply -f ./srcs/yaml/influxdb-pvc.yaml
 docker build -t image_influxdb:lastest -f ./srcs/docker/influxdb/Dockerfile .
 kubectl apply -f ./srcs/yaml/influxdb.yaml
+docker build -t image_grafana:lastest -f ./srcs/docker/grafana/Dockerfile .
+kubectl apply -f ./srcs/yaml/grafana.yaml
 
 
 eval $(minikube docker-env --unset)

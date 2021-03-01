@@ -6,3 +6,18 @@ docker run -d --rm --name grafana_cont -p 3000:3000 grafana
 docker exec -it grafana_cont /bin/sh
 #enter to bash 
 kubectl exec -it [pod_name] -- ./bin/sh
+
+grafana-cli --homepath "/usr/share/grafana" admin reset-admin-password admin123
+cd /usr/share/grafana && /usr/sbin/grafana-server --config=/etc/grafana.ini
+/usr/share/grafana/conf/provisioning/datasources
+
+
+echo "apiVersion: 1
+
+datasources:
+  - name: InfluxDB
+    type: influxdb
+    access: proxy
+    database: influxdb
+	editable: true
+    url: http://influx:8086" > influxdb.yaml
