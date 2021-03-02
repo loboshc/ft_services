@@ -1,10 +1,11 @@
 #!/bin/sh
 
 SERVICIO=""
-SERVICIO="${SERVICIO} msql"
+SERVICIO="${SERVICIO} mysql"
 SERVICIO="${SERVICIO} wordpress"
 SERVICIO="${SERVICIO} phpmyadmin"
 SERVICIO="${SERVICIO} influxdb"
+SERVICIO="${SERVICIO} grafana"
 
 cd /usr/share/grafana/conf/provisioning/datasources
 

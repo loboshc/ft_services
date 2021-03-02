@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Dockerfile                                         :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: diego <diego@student.42.fr>                +#+  +:+       +#+         #
+#    By: dlobos-m <dlobos-m@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/02 15:02:51 by dlobos-m          #+#    #+#              #
-#    Updated: 2021/03/02 15:04:56 by diego            ###   ########.fr        #
+#    Updated: 2021/03/02 17:47:09 by dlobos-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,4 +29,4 @@ RUN cd sbin/ \
 
 EXPOSE 3306
 
-ENTRYPOINT sleep infinity && wait
+ENTRYPOINT ["/tmp/setup.sh"]
