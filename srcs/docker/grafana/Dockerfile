@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Dockerfile                                         :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dlobos-m <dlobos-m@student.42.fr>          +#+  +:+       +#+         #
+#    By: diego <diego@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/28 18:36:18 by diego             #+#    #+#              #
-#    Updated: 2021/03/01 20:39:26 by dlobos-m         ###   ########.fr        #
+#    Updated: 2021/03/02 02:04:21 by diego            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,9 @@ RUN apk update \
 	&& apk add grafana-7.4.3-r0.apk \
 	&& rm grafana-7.4.3-r0.apk
 COPY ./srcs/docker/grafana/srcs_grafana/init.sh /sbin/
+COPY ./srcs/docker/grafana/srcs_grafana/create_datasources.sh /sbin/
 RUN chmod 777 /sbin/init.sh
+RUN chmod 777 /sbin/create_datasources.sh
 
 EXPOSE 3000
 
