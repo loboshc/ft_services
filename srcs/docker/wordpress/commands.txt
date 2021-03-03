@@ -8,3 +8,29 @@ docker exec -it wordpress_cont /bin/sh
 kubectl exec -it [pod_name] -- ./bin/sh
 #iniciar php server en wordpress
 php --server 0.0.0.0:5050 --docroot /usr/share/webapps/wordpress 
+
+
+rc-status -a
+touch /run/openrc/softlevel --> para que funcione openrc
+rc-service php-fpm7 start
+mkdir -p /run/nginx
+#debugear nginx
+tail -f /var/log/nginx/error.log
+
+
+        root var/www/wordpress;
+        index index.php;
+
+        location / {
+        try_files $uri $uri/ /index.php$is_args$args;
+         }
+
+        location ~ \.php$ {
+					# rewrite to 404 if file does not exist.
+					try_files $uri =404;
+					include fastcgi.conf;
+					fastcgi_pass 127.0.0.1:9000;
+					fastcgi_index index.php;
+					include fastcgi_params;
+			}
+		https://stackoverflow.com/questions/35261922/how-to-debug-fastcgi-sent-in-stderr-primary-script-unknown-while-reading-respo#:~:text=FastCGI%20sent%20in%20stderr%3A%20%22Primary,was%20sent%20for%20some%20reason.

@@ -2,10 +2,12 @@ FROM alpine:3.12
 
 RUN apk update \
 	&& apk add wget \
+	&& apk add nginx && mkdir -p /run/nginx \
+	&& apk add openrc --no-cache \
 	&& apk add mysql-client \
 	&& apk add php7 php7-fpm php7-opcache php7-gd php7-mysqli \
 	php7-zlib php7-curl php7-mbstring php7-json php7-session php-common \
-	php-cli php-mbstring php-bz2 php-phar \
+	php-cli php-mbstring php-bz2 php-phar php-cgi\
 	&& wget -P /tmp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
 	&& chmod +x /tmp/wp-cli.phar && mv /tmp/wp-cli.phar /usr/sbin/wp
 
@@ -23,4 +25,4 @@ RUN mkdir -p /usr/share/webapps/wordpress
 
 EXPOSE 5050 
 
-ENTRYPOINT ["/sbin/init.sh"]
+ENTRYPOINT sleep infinity && wait
