@@ -1,0 +1,8 @@
+#build docker image
+docker build -t nginx -f ./srcs/docker/nginx/Dockerfile .
+#run image
+docker run -d --rm --name nginx_cont -p 80:80 -p 443:443 nginx
+#bash on running container
+docker exec -it nginx_cont /bin/sh
+#enter to bash 
+kubectl exec -it [pod_name] -- ./bin/sh
