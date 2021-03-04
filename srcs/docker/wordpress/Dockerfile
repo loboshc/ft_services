@@ -10,7 +10,7 @@ RUN apk update \
 	php-cli php-mbstring php-bz2 php-phar php-cgi\
 	&& wget -P /tmp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
 	&& chmod +x /tmp/wp-cli.phar && mv /tmp/wp-cli.phar /usr/sbin/wp
-
+#intall telegraf
 RUN cd sbin/ \
 	&& wget https://dl.influxdata.com/telegraf/releases/telegraf-1.17.3_linux_i386.tar.gz \
 	&& tar xf telegraf-1.17.3_linux_i386.tar.gz \
@@ -19,10 +19,10 @@ RUN cd sbin/ \
 
 COPY srcs/docker/wordpress/srcs_wordpress/init.sh /sbin/
 COPY srcs/docker/wordpress/srcs_wordpress/setup_wordpress.sh /sbin/
+COPY srcs/docker/wordpress/default.conf /etc/nginx/conf.d/default.conf
 RUN chmod 777 /sbin/init.sh
 RUN chmod 777 /sbin/setup_wordpress.sh
-RUN mkdir -p /usr/share/webapps/wordpress
 
 EXPOSE 5050 
 
-ENTRYPOINT sleep infinity && wait
+ENTRYPOINT ["/sbin/init.sh"]

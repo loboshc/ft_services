@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cd /usr/share/webapps/wordpress
+cd /var/lib/nginx/www/wordpress
 /usr/sbin/wp core download
 /usr/sbin/wp config create --dbname=wordpress --dbuser=admin --dbpass=123456 --dbhost=mysql-svc
 echo "define( 'WP_HOME', 'http://192.168.99.240:5050/' );" >> wp-config.php
