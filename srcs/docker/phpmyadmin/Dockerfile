@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Dockerfile                                         :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dlobos-m <dlobos-m@student.42.fr>          +#+  +:+       +#+         #
+#    By: diego <diego@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/17 19:17:59 by dlobos-m          #+#    #+#              #
-#    Updated: 2021/03/02 20:02:58 by dlobos-m         ###   ########.fr        #
+#    Updated: 2021/03/04 02:50:59 by diego            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,18 +14,21 @@ FROM alpine:3.12
 
 RUN apk update \
 	&& apk add wget \
+	&& apk add nginx && mkdir -p /run/nginx \
+	&& apk add openrc --no-cache \
 	&& apk add mysql-client \
 	&& apk add php7 php7-fpm php7-opcache php7-gd php7-mysqli \
 	php7-zlib php7-curl php7-mbstring php7-json php7-session php-common \
 	php-cli php-mbstring php-bz2 php-phar
 
-RUN mkdir -p /usr/share/webapps/ \
-	&& cd /usr/share/webapps \
+RUN mkdir -p /var/lib/nginx/www/ \
+	&& cd /var/lib/nginx/www/ \
 	&& wget http://files.directadmin.com/services/all/phpMyAdmin/phpMyAdmin-5.0.2-all-languages.tar.gz \
 	&& tar zxvf phpMyAdmin-5.0.2-all-languages.tar.gz \
 	&& rm phpMyAdmin-5.0.2-all-languages.tar.gz \
 	&& mv phpMyAdmin-5.0.2-all-languages phpmyadmin \
-	&& chmod -R 777 /usr/share/webapps/
+	&& adduser -D -g 'www' www \
+	&& chown -R www:www /var/lib/nginx
 
 RUN cd sbin/ \
 	&& wget https://dl.influxdata.com/telegraf/releases/telegraf-1.17.3_linux_i386.tar.gz \
@@ -33,7 +36,8 @@ RUN cd sbin/ \
 	&& rm telegraf-1.17.3_linux_i386.tar.gz \
 	&& mv telegraf-1.17.3 telegraf
 
-COPY srcs/docker/phpmyadmin/srcs_phpmyadmin/config.inc.php /usr/share/webapps/phpmyadmin
+COPY srcs/docker/phpmyadmin/srcs_phpmyadmin/default.conf /etc/nginx/conf.d/default.conf
+COPY srcs/docker/phpmyadmin/srcs_phpmyadmin/config.inc.php /var/lib/nginx/www//phpmyadmin
 COPY srcs/docker/phpmyadmin/srcs_phpmyadmin/init_phpmyadmin.sh /sbin/
 RUN chmod 777 /sbin/init_phpmyadmin.sh
 
