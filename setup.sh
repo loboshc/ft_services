@@ -23,6 +23,8 @@ docker build -t image_influxdb:lastest -f ./srcs/docker/influxdb/Dockerfile .
 kubectl apply -f ./srcs/yaml/influxdb.yaml
 docker build -t image_grafana:lastest -f ./srcs/docker/grafana/Dockerfile .
 kubectl apply -f ./srcs/yaml/grafana.yaml
+docker build -t image_nginx:lastest -f ./srcs/docker/nginx/Dockerfile .
+kubectl apply -f ./srcs/yaml/nginx.yaml
 
 
 eval $(minikube docker-env --unset)

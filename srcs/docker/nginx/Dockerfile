@@ -17,9 +17,12 @@ RUN cd /tmp && wget https://github.com/FiloSottile/mkcert/archive/v1.0.0.tar.gz 
 	&& cd /tmp/mkcert-1.0.0/bin && cp mkcert /usr/bin/ \
 	&& cd /tmp/ && mkcert -install && mkcert localhost
 
+RUN mkdir -p /var/lib/nginx/www/hmtl
+COPY srcs/docker/nginx/srcs_nginx/html /var/lib/nginx/www/html
 COPY srcs/docker/nginx/srcs_nginx/default.conf /etc/nginx/conf.d/default.conf
 COPY srcs/docker/nginx/srcs_nginx/init.sh /sbin/
 RUN chmod 777 /sbin/init.sh
+
 EXPOSE 80 443
 
 ENTRYPOINT sleep infinity && wait
