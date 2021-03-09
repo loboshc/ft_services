@@ -8,3 +8,4 @@ docker exec -it phpmyadmin_cont /bin/sh
 kubectl exec -it [pod_name] -- ./bin/sh
 #iniciar php server en phpmyadmin
 php --server 0.0.0.0:5000 --docroot /usr/share/webapps/phpmyadmin 
+kubectl delete -f [service]

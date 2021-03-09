@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Dockerfile                                         :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: diego <diego@student.42.fr>                +#+  +:+       +#+         #
+#    By: dlobos-m <dlobos-m@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/17 19:17:59 by dlobos-m          #+#    #+#              #
-#    Updated: 2021/03/04 02:50:59 by diego            ###   ########.fr        #
+#    Updated: 2021/03/09 17:56:16 by dlobos-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ RUN apk update \
 	&& apk add mysql-client \
 	&& apk add php7 php7-fpm php7-opcache php7-gd php7-mysqli \
 	php7-zlib php7-curl php7-mbstring php7-json php7-session php-common \
-	php-cli php-mbstring php-bz2 php-phar
+	php-cli php-mbstring php-bz2 php-phar \
+	&& apk add --no-cache git make musl-dev go
 
 RUN mkdir -p /var/lib/nginx/www/ \
 	&& cd /var/lib/nginx/www/ \
@@ -29,6 +30,12 @@ RUN mkdir -p /var/lib/nginx/www/ \
 	&& mv phpMyAdmin-5.0.2-all-languages phpmyadmin \
 	&& adduser -D -g 'www' www \
 	&& chown -R www:www /var/lib/nginx
+
+RUN cd /tmp && wget https://github.com/FiloSottile/mkcert/archive/v1.0.0.tar.gz && tar xzvf /tmp/v1.0.0.tar.gz \
+	&& cd /tmp/mkcert-1.0.0 && make \
+	&& cd /tmp/mkcert-1.0.0/bin && chmod +x mkcert \
+	&& cd /tmp/mkcert-1.0.0/bin && cp mkcert /usr/bin/ \
+	&& cd /tmp/ && mkcert -install && mkcert localhost
 
 RUN cd sbin/ \
 	&& wget https://dl.influxdata.com/telegraf/releases/telegraf-1.17.3_linux_i386.tar.gz \

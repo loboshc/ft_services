@@ -25,9 +25,3 @@ $cfg['Servers'][$i]['user'] = 'admin';
 $cfg['Servers'][$i]['password'] = '123456';
 $cfg['Servers'][$i]['compress'] = false;
 $cfg['Servers'][$i]['AllowNoPassword'] = false;
-
-/**
- * Directories for saving/loading files from server
- */
-$cfg['UploadDir'] = '';
-$cfg['SaveDir'] = '';

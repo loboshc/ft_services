@@ -25,4 +25,4 @@ RUN chmod 777 /sbin/init.sh
 
 EXPOSE 80 443
 
-ENTRYPOINT sleep infinity && wait
+ENTRYPOINT ["/sbin/init.sh"]
