@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Dockerfile                                         :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dlobos-m <dlobos-m@student.42.fr>          +#+  +:+       +#+         #
+#    By: diego <diego@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/28 18:36:18 by diego             #+#    #+#              #
-#    Updated: 2021/03/02 19:35:05 by dlobos-m         ###   ########.fr        #
+#    Updated: 2021/03/10 02:54:25 by diego            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,8 +26,12 @@ RUN cd sbin/ \
 
 COPY ./srcs/docker/grafana/srcs_grafana/init.sh /sbin/
 COPY ./srcs/docker/grafana/srcs_grafana/create_datasources.sh /sbin/
+COPY ./srcs/docker/grafana/srcs_grafana/create_dashboard.sh /sbin/
+COPY ./srcs/docker/grafana/srcs_grafana/dashboard.json /usr/share/grafana/conf/provisioning/dashboards
+COPY ./srcs/docker/grafana/srcs_grafana/dashboard.yaml /usr/share/grafana/conf/provisioning/dashboards
 RUN chmod 777 /sbin/init.sh
 RUN chmod 777 /sbin/create_datasources.sh
+RUN chmod 777 /sbin/create_dashboard.sh
 
 EXPOSE 3000
 
