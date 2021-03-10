@@ -6,3 +6,4 @@ docker run -d --rm --name nginx_cont -p 80:80 -p 443:443 nginx
 docker exec -it nginx_cont /bin/sh
 #enter to bash 
 kubectl exec -it [pod_name] -- ./bin/sh
+tail -f /var/log/nginx/error.log
