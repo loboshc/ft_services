@@ -6,4 +6,3 @@ docker run -d --rm --name influxdb_cont -p 8086:8086 influxdb
 docker exec -it influxdb_cont /bin/sh
 #enter to bash 
 kubectl exec -it [pod_name] -- ./bin/sh
-./influx setup -u admin -p 123456789 -o ft_services -b ft_services -r 0 -f

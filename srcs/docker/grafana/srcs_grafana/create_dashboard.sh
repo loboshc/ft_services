@@ -20,3 +20,5 @@ sed -i 's/service_name/phpmyadmin/g' phpmyadmin.json
 sed -i 's/service_name/influxdb/g' influxdb.json
 sed -i 's/service_name/grafana/g' grafana.json
 sed -i 's/service_name/nginx/g' nginx.json
+
+rm dashboard.json
