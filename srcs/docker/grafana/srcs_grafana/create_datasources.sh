@@ -7,6 +7,7 @@ SERVICIO="${SERVICIO} phpmyadmin"
 SERVICIO="${SERVICIO} influxdb"
 SERVICIO="${SERVICIO} grafana"
 SERVICIO="${SERVICIO} nginx"
+SERVICIO="${SERVICIO} ftps"
 
 cd /usr/share/grafana/conf/provisioning/datasources
 

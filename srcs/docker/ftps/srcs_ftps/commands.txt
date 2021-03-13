@@ -1,7 +1,7 @@
 #build docker image
 docker build -t ftps -f ./srcs/docker/ftps/Dockerfile .
 #run image
-docker run -d --rm --name ftps_cont -p 21:21 -p 20:20 ftps
+docker run -d --rm --name ftps_cont -p 21:21 -p 20:20 -p 10000-10005:10000-10005 ftps
 #bash on running container
 docker exec -it ftps_cont /bin/sh
 #enter to bash 

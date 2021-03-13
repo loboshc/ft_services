@@ -25,6 +25,7 @@ docker build -t image_grafana:lastest -f ./srcs/docker/grafana/Dockerfile .
 kubectl apply -f ./srcs/yaml/grafana.yaml
 docker build -t image_nginx:lastest -f ./srcs/docker/nginx/Dockerfile .
 kubectl apply -f ./srcs/yaml/nginx.yaml
-
+docker build -t image_ftps:lastest -f ./srcs/docker/ftps/Dockerfile .
+kubectl apply -f ./srcs/yaml/ftps.yaml
 
 eval $(minikube docker-env --unset)
