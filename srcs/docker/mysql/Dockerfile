@@ -6,7 +6,7 @@
 #    By: dlobos-m <dlobos-m@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/02 15:02:51 by dlobos-m          #+#    #+#              #
-#    Updated: 2021/03/02 17:47:09 by dlobos-m         ###   ########.fr        #
+#    Updated: 2021/03/21 12:55:36 by dlobos-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,8 @@ RUN cd sbin/ \
 	&& wget https://dl.influxdata.com/telegraf/releases/telegraf-1.17.3_linux_i386.tar.gz \
 	&& tar xf telegraf-1.17.3_linux_i386.tar.gz \
 	&& rm telegraf-1.17.3_linux_i386.tar.gz \
-	&& mv telegraf-1.17.3 telegraf
+	&& mv telegraf-1.17.3 telegraf \
+	&& apk add --no-cache procps
 
 EXPOSE 3306
 

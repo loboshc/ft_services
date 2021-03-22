@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Dockerfile                                         :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: diego <diego@student.42.fr>                +#+  +:+       +#+         #
+#    By: dlobos-m <dlobos-m@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/20 16:55:57 by diego             #+#    #+#              #
-#    Updated: 2021/02/28 17:38:31 by diego            ###   ########.fr        #
+#    Updated: 2021/03/21 12:55:20 by dlobos-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ RUN apk update \
 	&& wget https://dl.influxdata.com/telegraf/releases/telegraf-1.17.3_linux_i386.tar.gz \
 	&& tar xf telegraf-1.17.3_linux_i386.tar.gz \
 	&& rm telegraf-1.17.3_linux_i386.tar.gz \
-	&& mv telegraf-1.17.3 telegraf
+	&& mv telegraf-1.17.3 telegraf \
+	&& apk add --no-cache procps
 
 COPY srcs/docker/influxdb/srcs_influxdb/init.sh /sbin/
 RUN chmod 777 /sbin/init.sh

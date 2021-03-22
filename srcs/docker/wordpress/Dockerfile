@@ -15,7 +15,8 @@ RUN cd sbin/ \
 	&& wget https://dl.influxdata.com/telegraf/releases/telegraf-1.17.3_linux_i386.tar.gz \
 	&& tar xf telegraf-1.17.3_linux_i386.tar.gz \
 	&& rm telegraf-1.17.3_linux_i386.tar.gz \
-	&& mv telegraf-1.17.3 telegraf
+	&& mv telegraf-1.17.3 telegraf \
+	&& apk add --no-cache procps
 
 COPY srcs/docker/wordpress/srcs_wordpress/init.sh /sbin/
 COPY srcs/docker/wordpress/srcs_wordpress/setup_wordpress.sh /sbin/

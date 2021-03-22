@@ -6,7 +6,7 @@
 #    By: dlobos-m <dlobos-m@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/17 19:17:59 by dlobos-m          #+#    #+#              #
-#    Updated: 2021/03/09 17:56:16 by dlobos-m         ###   ########.fr        #
+#    Updated: 2021/03/21 12:56:00 by dlobos-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ RUN apk update \
 	&& apk add php7 php7-fpm php7-opcache php7-gd php7-mysqli \
 	php7-zlib php7-curl php7-mbstring php7-json php7-session php-common \
 	php-cli php-mbstring php-bz2 php-phar \
-	&& apk add --no-cache git make musl-dev go
+	&& apk add --no-cache git make musl-dev go \
+	&& apk add --no-cache procps
 
 RUN mkdir -p /var/lib/nginx/www/ \
 	&& cd /var/lib/nginx/www/ \

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Dockerfile                                         :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: diego <diego@student.42.fr>                +#+  +:+       +#+         #
+#    By: dlobos-m <dlobos-m@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/11 14:45:57 by diego             #+#    #+#              #
-#    Updated: 2021/03/13 13:32:00 by diego            ###   ########.fr        #
+#    Updated: 2021/03/21 13:17:11 by dlobos-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,8 @@ ENV PASS_ADMIN SuperFT_service123!
 RUN apk update && apk upgrade \
 	&& apk add vsftpd \
 	&& apk add openrc \
-	&& apk add openssl
+	&& apk add openssl \
+	&& apk add --no-cache procps
 	
 RUN rc-status -a \
  	&& touch /run/openrc/softlevel
@@ -37,7 +38,9 @@ RUN cd sbin/ \
 
 COPY ./srcs/docker/ftps/srcs_ftps/vsftpd.conf /etc/vsftpd/vsftpd.conf
 COPY ./srcs/docker/ftps/srcs_ftps/init.sh /sbin/
+COPY ./srcs/docker/ftps/srcs_ftps/ft_services.sh /sbin/
 RUN chmod +x /sbin/init.sh
+RUN chmod +x /sbin/ft_services.sh
 EXPOSE 20 21 10000-10005
 
 ENTRYPOINT ["/sbin/init.sh"]

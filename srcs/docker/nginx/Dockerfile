@@ -3,7 +3,8 @@ FROM alpine:3.12
 RUN apk update \
 	&& apk add nginx && mkdir -p /run/nginx \
 	&& apk add openrc --no-cache \
-	&& apk add --no-cache git make musl-dev go
+	&& apk add --no-cache git make musl-dev go \
+	&& apk add --no-cache procps
 
 RUN cd sbin/ \
 	&& wget https://dl.influxdata.com/telegraf/releases/telegraf-1.17.3_linux_i386.tar.gz \

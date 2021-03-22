@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Dockerfile                                         :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: diego <diego@student.42.fr>                +#+  +:+       +#+         #
+#    By: dlobos-m <dlobos-m@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/28 18:36:18 by diego             #+#    #+#              #
-#    Updated: 2021/03/10 02:54:25 by diego            ###   ########.fr        #
+#    Updated: 2021/03/21 12:55:02 by dlobos-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,8 @@ RUN apk update \
 	&& apk upgrade \
 	&& wget http://dl-cdn.alpinelinux.org/alpine/edge/community/x86_64/grafana-7.4.3-r0.apk \
 	&& apk add grafana-7.4.3-r0.apk \
-	&& rm grafana-7.4.3-r0.apk
+	&& rm grafana-7.4.3-r0.apk \
+	&& apk add --no-cache procps
 
 RUN cd sbin/ \
 	&& wget https://dl.influxdata.com/telegraf/releases/telegraf-1.17.3_linux_i386.tar.gz \
