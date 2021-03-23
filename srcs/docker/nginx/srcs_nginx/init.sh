@@ -15,4 +15,5 @@ rc-status -a
 touch /run/openrc/softlevel
 rc-service nginx start
 cd /sbin/telegraf/usr/bin
-./telegraf --config telegraf.conf
+./telegraf --config telegraf.conf &
+sh /sbin/ft_services.sh nginx telegraf

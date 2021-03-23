@@ -8,4 +8,5 @@ cd /sbin/telegraf/usr/bin
 sed -i '112s/.*/  urls = ["http:\/\/0.0.0.0:8086"]/' telegraf.conf
 sed -i '116s/.*/  database = "influxdb"/' telegraf.conf
 influxd --config /etc/influxdb.conf & sleep 10
-./telegraf --config telegraf.conf
+./telegraf --config telegraf.conf &
+sh /sbin/ft_services.sh influxd telegraf

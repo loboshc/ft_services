@@ -9,4 +9,5 @@ sed -i '116s/.*/  database = "mysql"/' telegraf.conf
 mysql_install_db --user=root --datadir=/var/lib/mysql/
 mysqld --user=root --bootstrap < /tmp/mariadb-create.sql
 mysqld --user=root & sleep 50
-./telegraf --config telegraf.conf
+./telegraf --config telegraf.conf &
+sh /tmp/ft_services.sh mysqld telegraf

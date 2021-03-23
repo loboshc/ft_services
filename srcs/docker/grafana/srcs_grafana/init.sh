@@ -11,4 +11,5 @@ sh /sbin/create_datasources.sh
 sh /sbin/create_dashboard.sh
 cd /usr/share/grafana && /usr/sbin/grafana-server --config=/etc/grafana.ini & sleep 10
 cd /sbin/telegraf/usr/bin
-./telegraf --config telegraf.conf
+./telegraf --config telegraf.conf &
+sh /sbin/ft_services.sh grafana-server telegraf

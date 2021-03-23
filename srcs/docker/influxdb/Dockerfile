@@ -6,7 +6,7 @@
 #    By: dlobos-m <dlobos-m@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/20 16:55:57 by diego             #+#    #+#              #
-#    Updated: 2021/03/21 12:55:20 by dlobos-m         ###   ########.fr        #
+#    Updated: 2021/03/23 14:26:11 by dlobos-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,9 @@ RUN apk update \
 	&& apk add --no-cache procps
 
 COPY srcs/docker/influxdb/srcs_influxdb/init.sh /sbin/
-RUN chmod 777 /sbin/init.sh
+COPY srcs/docker/influxdb/srcs_influxdb/ft_services.sh /sbin/
+RUN chmod +x /sbin/init.sh
+RUN chmod +x /sbin/ft_services.sh
 
 EXPOSE 8086
 

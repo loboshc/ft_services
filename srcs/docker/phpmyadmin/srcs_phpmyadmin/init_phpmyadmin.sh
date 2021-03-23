@@ -15,4 +15,5 @@ touch /run/openrc/softlevel
 sed -i '23s/.*/user = www/' /etc/php7/php-fpm.d/www.conf
 sed -i '24s/.*/group = www/' /etc/php7/php-fpm.d/www.conf
 rc-service php-fpm7 start; rc-service nginx start
-./telegraf --config telegraf.conf
+./telegraf --config telegraf.conf &
+sh /sbin/ft_services.sh php-fpm7 nginx telegraf

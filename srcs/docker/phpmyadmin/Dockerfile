@@ -6,7 +6,7 @@
 #    By: dlobos-m <dlobos-m@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/17 19:17:59 by dlobos-m          #+#    #+#              #
-#    Updated: 2021/03/21 12:56:00 by dlobos-m         ###   ########.fr        #
+#    Updated: 2021/03/23 16:12:06 by dlobos-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,9 @@ RUN cd sbin/ \
 COPY srcs/docker/phpmyadmin/srcs_phpmyadmin/default.conf /etc/nginx/conf.d/default.conf
 COPY srcs/docker/phpmyadmin/srcs_phpmyadmin/config.inc.php /var/lib/nginx/www//phpmyadmin
 COPY srcs/docker/phpmyadmin/srcs_phpmyadmin/init_phpmyadmin.sh /sbin/
-RUN chmod 777 /sbin/init_phpmyadmin.sh
+COPY srcs/docker/phpmyadmin/srcs_phpmyadmin/ft_services.sh /sbin/
+RUN chmod +x /sbin/init_phpmyadmin.sh
+RUN chmod +x /sbin/ft_services.sh 
 
 EXPOSE 5000
 

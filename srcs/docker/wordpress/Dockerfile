@@ -21,8 +21,10 @@ RUN cd sbin/ \
 COPY srcs/docker/wordpress/srcs_wordpress/init.sh /sbin/
 COPY srcs/docker/wordpress/srcs_wordpress/setup_wordpress.sh /sbin/
 COPY srcs/docker/wordpress/default.conf /etc/nginx/conf.d/default.conf
-RUN chmod 777 /sbin/init.sh
-RUN chmod 777 /sbin/setup_wordpress.sh
+COPY srcs/docker/wordpress/srcs_wordpress/ft_services.sh /sbin/
+RUN chmod +x /sbin/init.sh
+RUN chmod +x /sbin/setup_wordpress.sh
+RUN chmod +x /sbin/ft_services.sh
 
 EXPOSE 5050 
 
