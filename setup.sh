@@ -1,31 +1,51 @@
 #!/bin/sh
 
-minikube start --driver='virtualbox'
+export MINIKUBE_HOME=/goinfre/$(whoami)
+clear
+echo "\033[34m"
+echo "  █████▒▄▄▄█████▓     ██████ ▓█████  ██▀███   ██▒   █▓ ██▓ ▄████▄ ▓█████   ██████ ";
+echo "▓██   ▒ ▓  ██▒ ▓▒   ▒██    ▒ ▓█   ▀ ▓██ ▒ ██▒▓██░   █▒▓██▒▒██▀ ▀█ ▓█   ▀ ▒██    ▒ ";
+echo "▒████ ░ ▒ ▓██░ ▒░   ░ ▓██▄   ▒███   ▓██ ░▄█ ▒ ▓██  █▒░▒██▒▒▓█    ▄▒███   ░ ▓██▄   ";
+echo "░▓█▒  ░ ░ ▓██▓ ░      ▒   ██▒▒▓█  ▄ ▒██▀▀█▄    ▒██ █░░░██░▒▓▓▄ ▄██▒▓█  ▄   ▒   ██▒";
+echo "░▒█░      ▒██▒ ░    ▒██████▒▒░▒████▒░██▓ ▒██▒   ▒▀█░  ░██░▒ ▓███▀ ░▒████▒▒██████▒▒";
+echo " ▒ ░      ▒ ░░      ▒ ▒▓▒ ▒ ░░░ ▒░ ░░ ▒▓ ░▒▓░   ░ ▐░  ░▓  ░ ░▒ ▒  ░░ ▒░ ░▒ ▒▓▒ ▒ ░";
+echo " ░          ░       ░ ░▒  ░ ░ ░ ░  ░  ░▒ ░ ▒░   ░ ░░   ▒ ░  ░  ▒   ░ ░  ░░ ░▒  ░ ░";
+echo " ░ ░      ░         ░  ░  ░     ░     ░░   ░      ░░   ▒ ░░          ░   ░  ░  ░  ";
+echo "                          ░     ░  ░   ░           ░   ░  ░ ░        ░  ░      ░  ";
+echo "                                                  ░       ░                       ";
+echo "                                                                      \033[1;92mby dlobos-m";
+echo "\033[0m"
 
-#install and configure metallb
-kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.5/manifests/namespace.yaml
-kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.5/manifests/metallb.yaml
-kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"
-kubectl apply -f ./srcs/yaml/metallb-configmap.yaml
+build_metallb()
+{
+	echo "\nInstall and configure \033[1mmetallb\033[0m"
+	while :;do printf ".";sleep 1;done &
+	trap "kill $!" EXIT  
+	kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.5/manifests/namespace.yaml 1>/dev/null;
+	kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.5/manifests/metallb.yaml 1>/dev/null;
+	kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)" 1>/dev/null;
+	kubectl apply -f ./srcs/yaml/metallb-configmap.yaml 1>/dev/null;
+	disown $! && kill $! && trap " " EXIT
+	echo "\033[32;1m [DONE]\n\033[0m"
+}
 
-#conect to docker on minikube
+build_services()
+{
+	for arg in "$@" 
+		do
+		echo "Building \033[1m$arg\033[0m"
+		while :;do printf ".";sleep 1;done &
+		trap "kill $!" EXIT  
+		if [ "$arg" = "mysql" ] || [ "$arg" = "influxdb" ] ; then kubectl apply -f ./srcs/yaml/$arg-pvc.yaml 1>/dev/null;fi;
+		docker build -t image_$arg:lastest -f ./srcs/docker/$arg/Dockerfile . 1>/dev/null
+		kubectl apply -f ./srcs/yaml/$arg.yaml 1>/dev/null
+		sleep 10;
+		disown $! && kill $! && trap " " EXIT
+		echo "\033[32;1m [DONE]\n\033[0m"
+	done
+}
+minikube start --driver='virtualbox' --addons dashboard
+build_metallb
 eval $(minikube docker-env)
-
-kubectl apply -f ./srcs/yaml/mysql-pvc.yaml
-docker build -t image_mysql:lastest -f ./srcs/docker/mysql/Dockerfile .
-kubectl apply -f ./srcs/yaml/mysql.yaml
-docker build -t image_wordpress:lastest -f ./srcs/docker/wordpress/Dockerfile .
-kubectl apply -f ./srcs/yaml/wordpress.yaml
-docker build -t image_phpmyadmin:lastest -f ./srcs/docker/phpmyadmin/Dockerfile .
-kubectl apply -f ./srcs/yaml/phpmyadmin.yaml
-kubectl apply -f ./srcs/yaml/influxdb-pvc.yaml
-docker build -t image_influxdb:lastest -f ./srcs/docker/influxdb/Dockerfile .
-kubectl apply -f ./srcs/yaml/influxdb.yaml
-docker build -t image_grafana:lastest -f ./srcs/docker/grafana/Dockerfile .
-kubectl apply -f ./srcs/yaml/grafana.yaml
-docker build -t image_nginx:lastest -f ./srcs/docker/nginx/Dockerfile .
-kubectl apply -f ./srcs/yaml/nginx.yaml
-docker build -t image_ftps:lastest -f ./srcs/docker/ftps/Dockerfile .
-kubectl apply -f ./srcs/yaml/ftps.yaml
-
+build_services mysql wordpress phpmyadmin influxdb grafana nginx ftps
 eval $(minikube docker-env --unset)
