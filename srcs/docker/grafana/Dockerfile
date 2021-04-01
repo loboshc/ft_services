@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: dlobos-m <dlobos-m@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/02/28 18:36:18 by diego             #+#    #+#              #
-#    Updated: 2021/03/23 13:59:23 by dlobos-m         ###   ########.fr        #
+#    Created: 2021/02/28 18:36:18 by dlobos-m          #+#    #+#              #
+#    Updated: 2021/04/01 17:11:03 by dlobos-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,9 +14,9 @@ FROM alpine:3.12
 
 RUN apk update \
 	&& apk upgrade \
-	&& wget https://dl-cdn.alpinelinux.org/alpine/edge/community/x86_64/grafana-7.4.5-r1.apk \
-	&& apk add grafana-7.4.5-r1.apk \
-	&& rm grafana-7.4.5-r1.apk \
+	&& wget http://dl-cdn.alpinelinux.org/alpine/v3.13/community/x86_64/grafana-7.3.6-r0.apk \
+	&& apk add grafana-7.3.6-r0.apk \
+	&& rm grafana-7.3.6-r0.apk \
 	&& apk add --no-cache procps
 
 RUN cd sbin/ \
